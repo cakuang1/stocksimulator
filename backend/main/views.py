@@ -25,24 +25,27 @@ def GetTrendingData():
     all_symbols = " ".join(tickers)
     myInfo = Ticker(all_symbols)
     myDict = myInfo.price
-    returnlist = {}
+    returnlist = []
     for ticker in tickers:
         try:
             ticker = str(ticker)
+            stockname = myDict[ticker]['longName']
             price = myDict[ticker]['regularMarketPrice']
             closingprice = myDict[ticker]['regularMarketPreviousClose']
+            increase = '1' if (price) >= closingprice else '0'
             percent = f"{myDict[ticker]['regularMarketChangePercent'] * 100:.2f}%"
             tickeritem =  {
+                'ticker': ticker,
+                'name': stockname,
                 'current_price':"{:.2f}".format(price),
                 'change': "{:.2f}".format(price - closingprice),
                 'percent_change': percent,
+                'increase' : increase
             }
-            returnlist[ticker] = tickeritem
+            returnlist.append(tickeritem)
         except:
             continue
     return returnlist
-
-
 
 
 
@@ -59,7 +62,7 @@ class TrendingView(APIView):
 
 
 
-class StockView(APIView):
+
     
 
 
