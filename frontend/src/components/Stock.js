@@ -25,19 +25,32 @@ const example = {'ticker': 'aapl',
 function Title({data}) {
     return (
         <div className="">
-            <h1 className="text-5xl">{data['name']}</h1>
-            <div className="border mt-4 mb-4"></div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-2">
+                {data['name']}
+            </h1>
+            <div className="border-b-2   mb-6"></div>
         </div>
-    )
+    );
 }
-function Box({data}) {
 
+function BoxItem({label,tag}) {
+    return (
+        <div className="bg-white  flex justify-between px-2 h-14  p-4 ">
+            <div className="text-xl font-semibold text-gray-700">{label}</div>
+            <div className="text-xl text-gray-500 font-bold">{tag}</div>
+        </div>
+    );
+}
+
+
+
+
+
+function Box({data}) {
     return (
         <div className="border rounded-2xl p-2 w-96">
-            <div className="flex justify-between px-2">
-                <div className="ticker">DAY RANGE</div>
-                <div>{data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}</div>
-            </div>
+            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+
             <div className="border"></div>
             <div className="flex justify-between px-2">
                 <div className="ticker">CLOSE</div>
@@ -56,9 +69,6 @@ function Box({data}) {
 function Graph({}) {
 
     
-
-
-
 
     return
 }
@@ -89,14 +99,20 @@ function Stock(){
     }, []);
     
     return (
+        <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
         <div className="pl-10 pt-4 pr-10">
             <Title data={example}/>
             <div className="flex">
                 <Box data={example}/>
 
-
             </div>
 
+            <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
+                <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                    Trade
+                </div>
+                </div>
+        </div>
       </div>
     );
   };

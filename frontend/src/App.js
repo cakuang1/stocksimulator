@@ -14,20 +14,18 @@ function App() {
         <div className='flex '>
         <Sidebar/>
         <div className=' w-full bg-green-50 flex justify-center items-center h-full py-7 h-screen'>  
-
         <Routes>
         <Route path="/" element={<Portfolio/>} />
           <Route path="/stocks" element={<Stocks/>} />
           <Route path="/stock/:tickerId" element = {<Stock/>}/>
       </Routes>
-
-
       </div>
        </div>
       </div>
-
       </ChakraProvider> 
   );
 }
+
+
 
 export default App;

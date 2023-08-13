@@ -58,7 +58,7 @@ function Sidebar(){
             <div class="space-y-3 ">
                 <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">Misc</label>
 
-                <SidebarButton to = {"/about"} icon = {abuoutimage} text={'About'} />
+                <SidebarButton to = {"/about"} icon = {abuoutimage} text={'About'} active={isAboutActive}/>
 
             </div>
 
