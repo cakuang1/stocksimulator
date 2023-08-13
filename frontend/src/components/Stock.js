@@ -45,7 +45,6 @@ function BoxItem({label,tag}) {
 
 
 
-
 function Box({data}) {
     return (
         <div className="border rounded-2xl p-2 w-96">
@@ -66,12 +65,15 @@ function Box({data}) {
     )
 }
 
+
 function Graph({}) {
 
     
 
     return
 }
+
+
 
 
 
@@ -106,13 +108,12 @@ function Stock(){
                 <Box data={example}/>
 
             </div>
-
-            <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
+        </div>
+        <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
                 <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
                     Trade
                 </div>
                 </div>
-        </div>
       </div>
     );
   };
