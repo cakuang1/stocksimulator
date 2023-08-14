@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-from .serializers import StockSerializer
-from .models import Stock
+
 
 import requests
 from yahooquery import Ticker
@@ -46,6 +45,54 @@ def GetTrendingData():
         except:
             continue
     return returnlist
+
+
+
+def GetTickerData(ticker):
+    def GetBox(ticker):
+        tickerdata = Ticker(ticker).price[ticker]
+        returndic = {
+        'ticker': ticker,
+        'name':tickerdata['shortName'] ,
+        'postMarketPrice' :tickerdata['postMarketPrice'],
+        'postMarketChange' :tickerdata['postMarketChange'],
+        'regularMarketChange' :tickerdata['regularMarketChange'],
+        'regularMarketChangePercent' : tickerdata['regularMarketChangePercent'],
+        'regularMarketPrice': tickerdata['regularMarketPrice'],
+        'regularMarketVolume' : tickerdata['regularMarketVolume'],
+        'regularMarketPrice' : tickerdata['regularMarketPrice'],
+        'regularMarketPreviousClose' : tickerdata['regularMarketPreviousClose'],
+        'regularMarketDayHigh' : tickerdata['regularMarketPreviousClose'],
+        'regularMarketDayLow' : tickerdata['regularMarketPreviousClose'],
+        'marketcap' : tickerdata['marketCap']
+        }
+        return returndic
+    def GetGraph(ticker):
+        df = Ticker(ticker).history(period = '1d',interval='5m').reset_index()[['date','open']]
+        df['date'] = df['date'].dt.strftime('%H:%M')
+        df['open'] = df['open'].round(2)
+        df =df.rename(columns={'date': 'x', 'open': 'y'})
+        return df.to_dict(orient='records')
+    return GetGraph(ticker)
+
+
+
+
+
+
+
+class TickerView(APIView):
+    def get(self, request, ticker= None):
+        if ticker is None:
+            return Response({"error": "Ticker parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
+        print(ticker)
+        try:
+            data = GetTickerData(ticker)
+        except Exception as e:
+            return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(data, status=status.HTTP_200_OK)
+
+
 
 
 

@@ -1,7 +1,6 @@
 import { useState,useEffect } from "react";
 import {useParams} from "react-router-dom";
-
-
+import Graph from "./Graph";
 
 // Data given b
 
@@ -44,10 +43,9 @@ function BoxItem({label,tag}) {
 
 
 
-
 function Box({data}) {
     return (
-        <div className="border rounded-2xl p-2 w-100">
+        <div className="border rounded-2xl p-2 w-5/12">
             <BoxItem label={'TICKER'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
             <BoxItem label={'DAY MARKET RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
             <BoxItem label={'DAY MARKET CHANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
@@ -65,13 +63,38 @@ function Box({data}) {
 }
 
 
-function Graph({}) {
+let japan = [
+    {
+      "id": "japan",
+      "color": "hsl(40, 70%, 50%)",
+      "data": [{'x': '09:30', 'y': 177.97},
+      {'x': '09:35', 'y': 178.26},
+      {'x': '09:40', 'y': 178.49},
+      {'x': '09:45', 'y': 178.4},
+      {'x': '09:50', 'y': 177.95},
+      {'x': '09:55', 'y': 178.36},
+      {'x': '10:00', 'y': 178.27},
+      {'x': '10:05', 'y': 178.29},
+      {'x': '10:10', 'y': 178.25},
+      {'x': '10:15', 'y': 178.53},
+      {'x': '10:20', 'y': 178.27},
+      {'x': '10:25', 'y': 178.58},
+      {'x': '10:30', 'y': 178.27},
+      {'x': '10:35', 'y': 178.79},
+      {'x': '10:40', 'y': 179.16},
+      {'x': '10:45', 'y': 179.09},
+      {'x': '10:50', 'y': 179.36},
+      {'x': '10:55', 'y': 179.62},
+      {'x': '11:00', 'y': 179.44},
+      {'x': '11:05', 'y': 179.5},
+      {'x': '11:10', 'y': 179.24},
+      {'x': '11:15', 'y': 179.07},
+      {'x': '11:20', 'y': 179.15},
+      {'x': '11:25', 'y': 179.17},
+      {'x': '11:30', 'y': 179.35}]
+    }
 
-    
-
-    return
-}
-
+      ]
 
 
 
@@ -103,8 +126,10 @@ function Stock(){
         <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
         <div className="pl-10 pt-4 pr-10">
             <Title data={example}/>
-            <div className="flex">
+            <div className="flex  h-5/6">
                 <Box data={example}/>
+
+                <Graph data={japan}/>
 
             </div>
         </div>
