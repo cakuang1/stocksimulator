@@ -3,10 +3,19 @@ services:
   frontend:
     build:
       context: ./frontend
+    environment:
+      - WATCHPACK_POLLING=true
     ports:
       - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+
   backend:
     build:
       context: ./backend
     ports:
       - "8000:8000"
+    volumes:
+      - /app/__pycache__
+      - ./backend:/app

@@ -36,7 +36,7 @@ function Title({data}) {
 function BoxItem({label,tag}) {
     return (
         <div className="bg-white  flex justify-between px-2 h-14  p-4 ">
-            <div className="text-xl font-semibold text-gray-700">{label}</div>
+            <div className="text-xl font-bold text-gray-700">{label}</div>
             <div className="text-xl text-gray-500 font-bold">{tag}</div>
         </div>
     );
@@ -47,20 +47,19 @@ function BoxItem({label,tag}) {
 
 function Box({data}) {
     return (
-        <div className="border rounded-2xl p-2 w-96">
+        <div className="border rounded-2xl p-2 w-100">
+            <BoxItem label={'TICKER'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY MARKET RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY MARKET CHANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY MARKET CHANGE PERCENT'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY MARKET PREVIOUS CLOSE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY MARKET VOLUME'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
             <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
 
-            <div className="border"></div>
-            <div className="flex justify-between px-2">
-                <div className="ticker">CLOSE</div>
-                <div>{data['regularMarketPreviousClose']}</div>
-            </div>
-            <div className="border"></div>
-            <div className="flex justify-between px-2">
-                <div className="ticker">CLOSE</div>
-                <div>{data['regularMarketPreviousClose']}</div>
-            </div>
-            <div className="border"></div>
         </div>
     )
 }

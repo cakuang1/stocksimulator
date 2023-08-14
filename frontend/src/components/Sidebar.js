@@ -45,27 +45,23 @@ function Sidebar(){
   const isAboutActive = location.pathname === '/about';
   
   return (
-<aside class="flex flex-col w-80 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
 
+<div class="w-80 h-screen bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 sticky top-0">
+  <div class="p-4">
+    <label class="text-lg text-gray-600 dark:text-gray-400">Main</label>
+    <nav class="mt-3 space-y-2">
+      <SidebarButton to="/portfolio" icon={portfolio} text="Portfolio" active={isPortfolioActive} />
+      <SidebarButton to="/stocks" icon={stockimage} text="Stocks" active={isStocksActive} />
+    </nav>
+  </div>
+  <div class="border-t border-gray-300 dark:border-gray-700 p-4 mt-auto">
+    <label class="text-sm text-gray-600 uppercase dark:text-gray-400">Misc</label>
+    <nav class="mt-3 space-y-2">
+      <SidebarButton to="/about" icon={abuoutimage} text="About" active={isAboutActive} />
+    </nav>
+  </div>
+</div>
 
-    <div class="flex flex-col justify-between flex-1 mt-6">
-        <nav class="-mx-3 space-y-6 ">
-            <div class="space-y-3 ">
-                <label class="px-3 text-s text-gray-500  dark:text-gray-400">Main</label>
-                <SidebarButton to={'/portfolio'} icon={portfolio} text={'Portfolio'} active={isPortfolioActive}/>
-                <SidebarButton to = {'/stocks'} icon = {stockimage} text = {"Stocks"} active={isStocksActive}/>
-            </div>
-            <div class="space-y-3 ">
-                <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">Misc</label>
-
-                <SidebarButton to = {"/about"} icon = {abuoutimage} text={'About'} active={isAboutActive}/>
-
-            </div>
-
-
-        </nav>
-    </div>
-</aside>
   )
 }
 

@@ -62,7 +62,7 @@ const JsonDataComponent = ({ data }) => {
   </thead>
         <tbody className="bg-white divide-y divide-gray-200">
       {data.map((item) => (
-  <tr className='shadow transition-shadow hover:shadow-md'>
+  <tr className='shadow transition-shadow hover:shadow-md cursor-default'>
   <td className="px-6 py-4 w-1/12 text-left align-middle  items-center">
     <TickerSymbol symbol={item["ticker"]} />
   </td>
@@ -93,6 +93,7 @@ const JsonDataComponent = ({ data }) => {
 
 
 
+
 function Stocks() {
   const [trending, setTrending] = useState(null)
   useEffect(() => {
@@ -113,10 +114,10 @@ function Stocks() {
     fetchData();
   }, []);
     return (
-<>
-<SearchBar/>
+<div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between h-auto'>
+
 {trending && <JsonDataComponent data={trending} />}
-</>
+</div>
     )
 }
 
