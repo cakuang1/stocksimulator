@@ -49,32 +49,60 @@ def GetTrendingData():
 
 
 def GetTickerData(ticker):
-    def GetBox(ticker):
-        tickerdata = Ticker(ticker).price[ticker]
+    def format_large_number(number):
+        if abs(number) >= 1e9:  # Billion or more
+            return f"{number / 1e9:.2f}B"
+        elif abs(number) >= 1e6:  # Million or more
+            return f"{number / 1e6:.2f}M"
+        else:
+            return str(number)
+    tickertick = Ticker(ticker)
+    tickerdata = tickertick.price[ticker]
+    tickersummary = tickertick.summary_detail[ticker]
+    tickerkeystats =tickertick.key_stats[ticker]
+    def getTopData():
+        topdic = {
+            'regularMarketPrice': round(tickerdata['regularMarketPrice'],2),
+            'regularMarketChange' :round(tickerdata['regularMarketChange'],2),
+            'regularMarketChangePercent' : round(tickerdata['regularMarketChangePercent'] * 100,2),
+            'change': tickerdata['regularMarketChange'] > 0,
+               
+        }
+        return topdic
+    def getBoxData():
         returndic = {
         'ticker': ticker,
         'name':tickerdata['shortName'] ,
-        'postMarketPrice' :tickerdata['postMarketPrice'],
-        'postMarketChange' :tickerdata['postMarketChange'],
-        'regularMarketChange' :tickerdata['regularMarketChange'],
-        'regularMarketChangePercent' : tickerdata['regularMarketChangePercent'],
-        'regularMarketPrice': tickerdata['regularMarketPrice'],
-        'regularMarketVolume' : tickerdata['regularMarketVolume'],
-        'regularMarketPrice' : tickerdata['regularMarketPrice'],
+        'exchange':tickerdata['exchangeName'],
+        'regularMarketVolume' : format_large_number(tickerdata['regularMarketVolume']),
         'regularMarketPreviousClose' : tickerdata['regularMarketPreviousClose'],
-        'regularMarketDayHigh' : tickerdata['regularMarketPreviousClose'],
-        'regularMarketDayLow' : tickerdata['regularMarketPreviousClose'],
-        'marketcap' : tickerdata['marketCap']
+        'regularMarketDayHigh' : tickerdata['regularMarketDayHigh'],
+        'regularMarketDayLow' : tickerdata['regularMarketDayLow'],
+        'averageDailyVolume10Day' : format_large_number(tickersummary['averageDailyVolume10Day']),
+        'regularMarketOpen' : tickerdata['regularMarketOpen'],
+        'trailingPE' : tickersummary['trailingPE'],
+        'forwardPE' : tickersummary['forwardPE'],
+        'fiftyTwoWeekLow' : tickersummary['fiftyTwoWeekLow'],
+        'fiftyTwoWeekHigh' : tickersummary['fiftyTwoWeekHigh'],
+        'priceHint' : tickersummary['priceHint'],
+        'beta' : tickersummary['beta'],
+        'forwardEps' : tickerkeystats['forwardEps'],
+        'trailingEps' : tickerkeystats['trailingEps'],
+        'pricetobook' : round(tickerkeystats['priceToBook'],2),
+        'beta' : tickersummary['beta'],
+        'marketcap' : format_large_number(tickersummary['marketCap']),
         }
         return returndic
+    
     def GetGraph(ticker):
-        df = Ticker(ticker).history(period = '1d',interval='5m').reset_index()[['date','open']]
-        df['date'] = df['date'].dt.strftime('%H:%M')
+        df = Ticker(ticker).history(period = '1d',interval='1m').reset_index()[['date','open']]
+        df['date'] = df['date'].dt.strftime('%I:%M')    
         df['open'] = df['open'].round(2)
         df =df.rename(columns={'date': 'x', 'open': 'y'})
         return df.to_dict(orient='records')
-    return GetGraph(ticker)
 
+    returndic = {'top': getTopData(),'box':getBoxData(),'graph':GetGraph(ticker)}
+    return returndic
 
 
 

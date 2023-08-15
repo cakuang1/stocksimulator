@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios'
+
 import { useState,useEffect } from 'react';
-import SearchBar from './Searchbar';
+import { useNavigate} from 'react-router-dom';
 
 
 let stockimage = <svg xmlns="http://www.w3.org/2000/svg" fill="purple" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -46,6 +46,10 @@ const TickerSymbol = ({ symbol }) => {
 };
 
 const JsonDataComponent = ({ data }) => {
+  const navigate = useNavigate();
+  const goRouteId = (id) => {
+   navigate(`${id}`);
+  }  
   return (
     <div className="p-6 ">
     <div className="w-9/12 mx-auto border border-gray-200 rounded-lg">
@@ -62,7 +66,7 @@ const JsonDataComponent = ({ data }) => {
   </thead>
         <tbody className="bg-white divide-y divide-gray-200">
       {data.map((item) => (
-  <tr className='shadow transition-shadow hover:shadow-md cursor-default'>
+  <tr key={item.ticker} className='shadow transition-shadow hover:shadow-md cursor-default' onClick={() => goRouteId(item.ticker.toLowerCase())}> 
   <td className="px-6 py-4 w-1/12 text-left align-middle  items-center">
     <TickerSymbol symbol={item["ticker"]} />
   </td>
@@ -82,6 +86,7 @@ const JsonDataComponent = ({ data }) => {
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl"></td>
 </tr>
+
       ))}
       </tbody>
       </table>

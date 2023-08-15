@@ -1,22 +1,9 @@
 import { useState,useEffect } from "react";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Graph from "./Graph";
 
-// Data given b
 
-const example = {'ticker': 'aapl',
-'name': 'Apple Inc.',
-'postMarketPrice': 195.95,
-'postMarketChange': 0.11999512,
-'postMarketChangePercent': 0.0006127514,
-'regularMarketChange': 2.6100006,
-'regularMarketChangePercent': 0.013507921,
-'regularMarketPrice': 195.83,
-'regularMarketVolume': 48291443,
-'regularMarketPreviousClose': 193.22,
-'regularMarketDayHigh': 193.22,
-'regularMarketDayLow': 193.22,
-'marketcap': 3080151367680}
+
 
 
 
@@ -43,94 +30,166 @@ function BoxItem({label,tag}) {
 
 
 
+
 function Box({data}) {
     return (
-        <div className="border rounded-2xl p-2 w-5/12">
-            <BoxItem label={'TICKER'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY MARKET RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY MARKET CHANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY MARKET CHANGE PERCENT'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY MARKET PREVIOUS CLOSE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY MARKET VOLUME'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
-            <BoxItem label={'DAY RANGE'} tag={data['regularMarketDayLow'] + ' - ' + data['regularMarketDayHigh']}/>
+        <div className="border rounded-2xl p-2 pb-6 w-5/12">
+            <BoxItem label={'TICKER'} tag={data.ticker.toUpperCase()}/>
+            <BoxItem label={'EXCHANGE'} tag={data.exchange}/>
+            <BoxItem label={'PREVIOUS CLOSE'} tag={data.regularMarketPreviousClose}/>
+            <BoxItem label={'MARKET VOLUME'} tag={data.regularMarketVolume}/>
+            <BoxItem label={'MARKET HIGH'} tag={data.regularMarketDayHigh}/>
+            <BoxItem label={'MARKET LOW'} tag={data.regularMarketDayLow}/>
+            <BoxItem label={'VOLUME (10 DAY AVERAGE)'} tag={data.averageDailyVolume10Day}/>
+            <BoxItem label={'MARKET OPEN'} tag={data.regularMarketOpen}/>
+            <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
 
         </div>
     )
 }
 
 
-let japan = [
-    {
-      "id": "japan",
-      "color": "hsl(40, 70%, 50%)",
-      "data": [{'x': '09:30', 'y': 177.97},
-      {'x': '09:35', 'y': 178.26},
-      {'x': '09:40', 'y': 178.49},
-      {'x': '09:45', 'y': 178.4},
-      {'x': '09:50', 'y': 177.95},
-      {'x': '09:55', 'y': 178.36},
-      {'x': '10:00', 'y': 178.27},
-      {'x': '10:05', 'y': 178.29},
-      {'x': '10:10', 'y': 178.25},
-      {'x': '10:15', 'y': 178.53},
-      {'x': '10:20', 'y': 178.27},
-      {'x': '10:25', 'y': 178.58},
-      {'x': '10:30', 'y': 178.27},
-      {'x': '10:35', 'y': 178.79},
-      {'x': '10:40', 'y': 179.16},
-      {'x': '10:45', 'y': 179.09},
-      {'x': '10:50', 'y': 179.36},
-      {'x': '10:55', 'y': 179.62},
-      {'x': '11:00', 'y': 179.44},
-      {'x': '11:05', 'y': 179.5},
-      {'x': '11:10', 'y': 179.24},
-      {'x': '11:15', 'y': 179.07},
-      {'x': '11:20', 'y': 179.15},
-      {'x': '11:25', 'y': 179.17},
-      {'x': '11:30', 'y': 179.35}]
-    }
-
-      ]
 
 
 
+function Top({topdata}) {
+  const green = 
+  <div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-14 w-16 rounded ml-4">
+      <svg class="w-6 h-6 fill-current text-green-700"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+      <div>{topdata.regularMarketChange}</div>
+  </div>
+
+  const red = 
+  <div class="flex flex-shrink-0 items-center justify-center bg-red-200 h-14 w-16 rounded ml-4">
+  <svg class="w-6 h-6 fill-current text-red-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+  </svg>
+
+  </div>
 
 
+  const curr = topdata.change == true ? green : red
+
+
+
+  return (
+    <div className="pl-10">
+      <h2 className="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">REGULAR MARKET PRICE (DAY) </h2>
+      <h2 className="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">REGULAR MARKET PRICE (DAY) </h2>
+    <div className=" flex">
+      <h1 className="font-bold">${topdata.regularMarketPrice}</h1>
+      {curr}
+  </div>
+    </div>
+
+  )
+
+}
+
+function Bottom({data}) {
+  return (
+<div class="flex pl-10 justify-around">
+  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+    <div className="flex  items-center p-4">
+      <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    <div>
+      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+        Market Capital
+      </p>
+      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+        {data.marketcap}
+      </p>
+    </div>
+    </div>
+  </div>
+  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+    <div className="flex  items-center p-4">
+      <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+      </svg>
+
+      </div>
+    <div>
+      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+        Price-to-Book Ratio
+      </p>
+      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+        {data.pricetobook}
+      </p>
+    </div>
+    </div>
+  </div>
+  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+    <div className="flex  items-center p-4">
+      <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+</svg>
+
+      </div>
+    <div>
+      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+        Forward EPS
+      </p>
+      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+        ${data.forwardEps}
+      </p>
+    </div>
+    </div>
+  </div>
+</div>)
+}
 
 
 function Stock(){
-    const routeparams = useParams()
+    let params = useParams();
     const [data, setData] = useState(null)
-    useEffect(() => {
-        const fetchData = async () => {
+    
+    useEffect(() => { 
+      const fetchData = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/stock/' + 'ticker');
-            const data = await response.json();
-            // Handle the data obtained from the API call here
-            setData(data);
-            console.log(data);
-            // You can use the "data" variable within this scope or call another function to handle the data.
+          const response = await fetch(`http://127.0.0.1:8000/api/ticker/${params.ticker}/`);
+          const test = await response.json();
+
+          console.log(test)
+          console.log(test.box)
+          // Handle the data obtained from the API call here
+          setData(test);
+          // You can use the "data" variable within this scope or call another function to handle the data.
         } catch (error) {
-            // Handle error if the API call fails
-            console.error('Error fetching data:', error);
+          // Handle error if the API call fails
+          console.error('Error fetching data:', error);
         }
-        };
-        fetchData();
+      };
+      fetchData();
     }, []);
     
     return (
         <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
         <div className="pl-10 pt-4 pr-10">
-            <Title data={example}/>
-            <div className="flex  h-5/6">
-                <Box data={example}/>
-
-                <Graph data={japan}/>
-
+        {data ? (<Title data={data.box}/>) : (<div></div>)}
+            <div className="flex h-5/6 text-5xl">
+            {data ? (<Box data={data.box}/>) : (<div></div>)}
+                <div className="h-full w-full"> 
+                {data ? (<Top topdata={data.top}/>) : (<div></div>)}
+                {data ? (<Graph data={
+                  [{ id: 'none',
+                    'color' : "hsl(25, 70%, 50%)",
+                    "data" : data.graph
+                  }]
+                }
+                  />) : (<div></div>)}
+                  {data ? (<Bottom data = {data.box}/>) : (<div></div>)}
+                
+                </div>
+                
             </div>
         </div>
         <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">

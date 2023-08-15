@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Portfolio />} />
           <Route path="/stocks" element={<Stocks />} />
-          <Route path="/stock/:tickerId" element={<Stock />} />
+          <Route path="/stocks/:ticker" element={<Stock/>} />
         </Routes>
       </div>
     </div>
