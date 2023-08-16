@@ -52,7 +52,10 @@ function Box({data}) {
 
 
 
-function Top({topdata}) {
+function Top({data}) {
+
+  const topdata = data.top
+  const date = data.date 
   const green = 
   <div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-14 w-16 rounded ml-4">
       <svg class="w-6 h-6 fill-current text-green-700"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -71,17 +74,20 @@ function Top({topdata}) {
 
 
   const curr = topdata.change == true ? green : red
-
-
+  const color = topdata.change == true ? 'text-green-400' : 'text-red-800'
 
   return (
     <div className="pl-10">
       <h2 className="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">REGULAR MARKET PRICE (DAY) </h2>
-      <h2 className="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">REGULAR MARKET PRICE (DAY) </h2>
     <div className=" flex">
       <h1 className="font-bold">${topdata.regularMarketPrice}</h1>
       {curr}
+      <div className={"flex ml-4 text-4xl font-bold items-center justify-center " + color}>
+      <p >${topdata.regularMarketChange}</p>
+      <p className="ml-3" >({topdata.regularMarketChangePercent} %)</p>
+      </div>
   </div>
+  <div className="text-2xl font-medium text-gray-300 dark:text-gray-400">{date}</div>
     </div>
 
   )
@@ -178,14 +184,8 @@ function Stock(){
             <div className="flex h-5/6 text-5xl">
             {data ? (<Box data={data.box}/>) : (<div></div>)}
                 <div className="h-full w-full"> 
-                {data ? (<Top topdata={data.top}/>) : (<div></div>)}
-                {data ? (<Graph data={
-                  [{ id: 'none',
-                    'color' : "hsl(25, 70%, 50%)",
-                    "data" : data.graph
-                  }]
-                }
-                  />) : (<div></div>)}
+                {data ? (<Top data={data}/>) : (<div></div>)}
+                {data ? (<Graph data={data}/>) : (<div></div>)}
                   {data ? (<Bottom data = {data.box}/>) : (<div></div>)}
                 
                 </div>

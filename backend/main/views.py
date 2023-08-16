@@ -96,12 +96,13 @@ def GetTickerData(ticker):
     
     def GetGraph(ticker):
         df = Ticker(ticker).history(period = '1d',interval='1m').reset_index()[['date','open']]
+        date_string = df['date'].iloc[0].date().strftime('%Y-%m-%d')
         df['date'] = df['date'].dt.strftime('%I:%M')    
         df['open'] = df['open'].round(2)
         df =df.rename(columns={'date': 'x', 'open': 'y'})
-        return df.to_dict(orient='records')
+        return [df.to_dict(orient='records'),date_string]
 
-    returndic = {'top': getTopData(),'box':getBoxData(),'graph':GetGraph(ticker)}
+    returndic = {'top': getTopData(),'box':getBoxData(),'graph':GetGraph(ticker)[0],'date' : GetGraph(ticker)[1]}
     return returndic
 
 

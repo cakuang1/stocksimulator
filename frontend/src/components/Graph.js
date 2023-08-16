@@ -4,10 +4,16 @@ import { ResponsiveLine,Line } from '@nivo/line'
 
 
 function Graph ({ data }) {
-    const lowestYValue = Math.min(...data.flatMap(series => series.data.map(point => point.y)));
+      const input = [{ id: 'none',
+      'color' : "hsl(135, 70%, 50%);",
+      "data" : data.graph
+    }]
+    const lowestYValue = Math.min(...input.flatMap(series => series.data.map(point => point.y)));
+
+    const color = data.top.change == true ? 'green' : 'red'
     return(
     <Line
-        data={data}
+        data={input}
         height={500}
         width={1250}
         margin={{ top: 50, right: 110, bottom: 50, left: 80 }}
@@ -50,7 +56,7 @@ function Graph ({ data }) {
         useMesh={true}
         enableSlices={false}
         enableArea = {true}
-
+        colors={[color]}
         enablePoints = {false}
         animate = {false}
         crosshairType="x" // Show only x-axis slices
