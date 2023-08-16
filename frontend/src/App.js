@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Stocks from './components/Stocks';
 import Stock from './components/Stock';
 import { Input} from '@chakra-ui/react'
+import Trade from './components/Trade';
 function App() {
   return (
     <ChakraProvider >
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Portfolio />} />
           <Route path="/stocks" element={<Stocks />} />
           <Route path="/stocks/:ticker" element={<Stock/>} />
+          <Route path="/trade/:ticker" element={<Trade/>} />
         </Routes>
       </div>
     </div>

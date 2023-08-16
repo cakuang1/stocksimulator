@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Graph from "./Graph";
 
 
@@ -35,15 +35,18 @@ function Box({data}) {
     return (
         <div className="border rounded-2xl p-2 pb-6 w-5/12">
             <BoxItem label={'TICKER'} tag={data.ticker.toUpperCase()}/>
-            <BoxItem label={'EXCHANGE'} tag={data.exchange}/>
+            <BoxItem label={'EXCHANGE'} tag={data.exchange.toUpperCase()}/>
             <BoxItem label={'PREVIOUS CLOSE'} tag={data.regularMarketPreviousClose}/>
             <BoxItem label={'MARKET VOLUME'} tag={data.regularMarketVolume}/>
             <BoxItem label={'MARKET HIGH'} tag={data.regularMarketDayHigh}/>
             <BoxItem label={'MARKET LOW'} tag={data.regularMarketDayLow}/>
             <BoxItem label={'VOLUME (10 DAY AVERAGE)'} tag={data.averageDailyVolume10Day}/>
             <BoxItem label={'MARKET OPEN'} tag={data.regularMarketOpen}/>
+            <BoxItem label={'TRAILING PE'} tag={data.trailingPE}/>
+            <BoxItem label={'FORWARD PE'} tag={data.forwardPE}/>
             <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
-
+            <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
+            <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
         </div>
     )
 }
@@ -61,7 +64,7 @@ function Top({data}) {
       <svg class="w-6 h-6 fill-current text-green-700"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
       <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
       </svg>
-      <div>{topdata.regularMarketChange}</div>
+
   </div>
 
   const red = 
@@ -176,7 +179,6 @@ function Stock(){
       };
       fetchData();
     }, []);
-    
     return (
         <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
         <div className="pl-10 pt-4 pr-10">
@@ -186,17 +188,19 @@ function Stock(){
                 <div className="h-full w-full"> 
                 {data ? (<Top data={data}/>) : (<div></div>)}
                 {data ? (<Graph data={data}/>) : (<div></div>)}
-                  {data ? (<Bottom data = {data.box}/>) : (<div></div>)}
-                
+                  {data ? (<Bottom data = {data.box}/>) : (<div></div>)}     
                 </div>
-                
             </div>
         </div>
-        <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
+        {data ?(<div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
+              <Link to = {{ pathname: '/trade/' + data.box.ticker, state: data}}>
                 <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
                     Trade
                 </div>
-                </div>
+                </Link>
+                </div> ): (<div></div>)}
+
+
       </div>
     );
   };
