@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
-
+import { useLocation } from 'react-router-dom';
 
 
 let exampledata = {
@@ -60,15 +60,14 @@ const StockCards = ({data}) => {
 }
 
 function Portfolio(){
+  const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
 
-
-
-  
-    localStorage.setItem('test','test')
     return (
 <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
 <div className="grid grid-cols-3 gap-10 px-9 pt-10">
-  <StockCards data={exampledata}/>
+{purchases.map((purchase) => (
+        <StockCards key={purchase.id} data={purchase} />
+      ))}
 </div>
 
 

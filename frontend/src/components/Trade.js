@@ -1,20 +1,31 @@
 import {React, useState,useEffect } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, Link,useParams } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 
 function Trade() {
-    const handlePurchase = (amount) => {
-        const purchaseData = {
+    const navigate = useNavigate()
+    const handlePurchase = () => {
+        if (isNaN(quantity) || quantity <= 0) {
+            // Throw an error if quantity is not a positive integer
+            setErrorMessage('Invalid quantity. Please enter a positive integer.');
+            return
+          }
+          if (quantity > 100) {
+            setErrorMessage('Quantity cannot exceed 100.');
+            return; // Exit the function if there's an error
+          }
+      
+          const purchaseData = {
             id: uuidv4(),
-          ticker: data.box.ticker,
-          name: data.box.name,
-          purchasedate: new Date().toISOString(), // Set the purchase date
-          boughtfor: data.box.currentPrice,
-          ammountbought: amount, // Adjust as needed
-          total: data.box.currentPrice,
-        };
+            ticker: data.box.ticker,
+            name: data.box.name,
+            purchasedate: new Date().toISOString(),
+            boughtfor: data.top.regularMarketPrice,
+            ammountbought: quantity.toString(), // Store quantity as a string
+            total: (quantity * data.top.regularMarketPrice).toString(), // Calculate total price
+          };
     
         // Retrieve existing purchases from Local Storage or initialize an empty array
         const storedPurchases = JSON.parse(localStorage.getItem('purchases')) || [];
@@ -26,6 +37,8 @@ function Trade() {
         localStorage.setItem('purchases', JSON.stringify(storedPurchases));
     
         // You can also redirect the user to a confirmation page or perform other actions
+        navigate(`/?message=Purchase%20${purchaseData.id}%20made`)
+
       };
     let params = useParams();
     const [data, setData] = useState(null)
@@ -49,8 +62,10 @@ function Trade() {
     }, []);
 
     const [quantity, setQuantity] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
     const handleQuantityChange = (event) => {
-        setQuantity(event.target.value);
+        setQuantity(parseInt(event.target.value, 10));
+        setErrorMessage('')
       };
     return (
 
@@ -71,6 +86,7 @@ function Trade() {
                     onChange={handleQuantityChange}
                     className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
+                {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
                 </div>
                 <div className="flex">
                     <Link to = {'/stocks/' + data.box.ticker}>
@@ -81,14 +97,10 @@ function Trade() {
 
                             </div>
                     </Link>
-                    <Link to = {'/'}>
-                    <div className="border h-32 w-72 flex items-center justify-center rounded-lg cursor-pointer transition duration-300 hover:shadow-lg bg-green-200">
+
+                    <div className="border h-32 w-72 flex items-center justify-center rounded-lg cursor-pointer transition duration-300 hover:shadow-lg bg-green-200" onClick={handlePurchase}>
                                 PURCHASE
                             </div>
-                    </Link>
-
-
-
 
                 </div>
 
