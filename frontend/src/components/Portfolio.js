@@ -3,24 +3,13 @@ import { useState,useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 
-let exampledata = {
-  id : 'f47ac10b-58cc-4372-a567-0e02b2c3d479' ,
-  ticker: 'AAPL',
-  name : 'Apple Inc',
-  purchasedate : '',
-  boughtfor: '127.87',     
-  ammountbought : '20',
-  total : '1500',
-}
+
 
 
 
 function getPurchases() {
   return JSON.parse(localStorage.getItem('purchases')) || [];
 }
-
-
-
 
 const StockCards = ({data}) => {
     return (        
@@ -61,52 +50,92 @@ const StockCards = ({data}) => {
 
 function Portfolio(){
   const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
-  const [isSearchBarActive, setSearchBarActive] = useState(false);
+  const [toppers, setToppers] = useState([0,0,0,0])
+    useEffect(() => { 
+      const fetchData = async () => {
+        try {
+          const mySet = new Set();
+          const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
+          if (purchases.length > 0) {
+          purchases.forEach(element => {
+            mySet.add(element.ticker)
+          });
+          const setToArray = [...mySet];
+          const setString = setToArray.join(',');
+          const response = await fetch(`http://127.0.0.1:8000/api/portfolio/${setString}/`);
+          const costbasis = response.reduce((accumulator, currentElement) => {
+            return accumulator + currentElement.total;
+          }, 0);
+          const portfoliovalue = response.reduce((accumulator, currentElement) => {
+            const ammountbought = currentElement.ammountbought
+            const currentstockprice = 
+            const
+
+
+
+            return accumulator + currentElement.;
+          }, 0);
+          }
+          
+          
+        } catch (error) {
+          // Handle error if the API call fails
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchData();
+    }, []);
+
     return (
 <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl '>
 <div class="flex justify-center mt-10">
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+<div className="h-32 w-96 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
-      <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
 
-      </div>
     <div>
       <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
-        PORTFOLIO
+        COST BASIS
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {}
+        {toppers[0]}
       </p>
     </div>
     </div>
   </div>
   <div className="h-32 w-96 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
-      <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
 
+    <div>
+      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+        PORTFOLIO VALUE
+      </p>
+      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+        {toppers[0]}
+      </p>
+    </div>
+    </div>
+  </div>
+  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+    <div className="flex  items-center p-4">
 
-      </div>
     <div>
       <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
         PORTFOLIO CHANGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        holder
+        ${toppers[1]}
       </p>
     </div>
     </div>
   </div>
   <div className="h-32 w-96 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
-      <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
-
-      </div>
     <div>
       <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
         CHANGE PERCENTAGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        holder
+        %{toppers[2]}
       </p>
     </div>
     </div>

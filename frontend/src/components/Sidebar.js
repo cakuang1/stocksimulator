@@ -40,7 +40,7 @@ let abuoutimage = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0
 
 function Sidebar(){
   const location = useLocation();
-  const isPortfolioActive = location.pathname === '/portfolio';
+  const isPortfolioActive = location.pathname === '/';
   const isStocksActive = location.pathname === '/stocks';
   const isAboutActive = location.pathname === '/about';
   
@@ -50,7 +50,7 @@ function Sidebar(){
   <div class="p-4">
     <label class="text-lg text-gray-600 dark:text-gray-400">Main</label>
     <nav class="mt-3 space-y-2">
-      <SidebarButton to="/portfolio" icon={portfolio} text="Portfolio" active={isPortfolioActive} />
+      <SidebarButton to="/" icon={portfolio} text="Portfolio" active={isPortfolioActive} />
       <SidebarButton to="/stocks" icon={stockimage} text="Stocks" active={isStocksActive} />
     </nav>
   </div>

@@ -13,7 +13,6 @@ let stockimage = <svg xmlns="http://www.w3.org/2000/svg" fill="purple" viewBox="
 
 
 function UpImage({net,price}) {
-
   let up =<div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-14  rounded">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
@@ -54,6 +53,7 @@ const JsonDataComponent = ({ data }) => {
   return (
     <div className="p-6 ">
     <div className="w-9/12 mx-auto border border-gray-200 rounded-lg">
+      
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
       <tr className='shadow transition-shadow hover:shadow-md text-xl'>
@@ -97,11 +97,9 @@ const JsonDataComponent = ({ data }) => {
 };
 
 
-
-
-
 function Stocks() {
   const [trending, setTrending] = useState(null)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -124,6 +122,9 @@ function Stocks() {
     
 <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between h-auto'>
 <SearchBar/>
+<div class="flex items-center justify-center">
+  <h1 class="py-2 px-4 bg-green-200 text-white rounded-md text-2xl font-semibold shadow-md">Trending</h1>
+</div>
 {trending && <JsonDataComponent data={trending} />}
 </div>  
 </>

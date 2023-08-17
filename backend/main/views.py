@@ -21,12 +21,13 @@ def GetTrendingData():
         tickers = [item["ticker"] for item in data["results"]]
         return tickers
     tickers = GetTrendingStocks()
-    tickers = tickers[0:20]
-    all_symbols = " ".join(tickers)
-    myInfo = Ticker(all_symbols)
+    tickers = tickers[0:60]
+    myInfo = Ticker(tickers)
     myDict = myInfo.price
     returnlist = []
     for ticker in tickers:
+        if isinstance(myDict[ticker], dict) and myDict[ticker].get('exchange') != 'NMS':
+            continue
         try:
             ticker = str(ticker)
             stockname = myDict[ticker]['longName']
@@ -40,7 +41,7 @@ def GetTrendingData():
                 'current_price':"{:.2f}".format(price),
                 'change': "{:.2f}".format(price - closingprice),
                 'percent_change': percent,
-                'increase' : increase
+                'increase' : increase,
             }
             returnlist.append(tickeritem)
         except:
@@ -109,9 +110,14 @@ def GetTickerData(ticker):
 
 def getSearchData(query):
     data = yq.search(query)
-    
     quotes = [quote for quote in data['quotes'] if quote.get('exchDisp') in ['NASDAQ', 'NYSE']][:4]
     return quotes
+
+
+def GetList(tickers):
+    data = Ticker(tickers).price
+    newdata = [{i:data[i]['regularMarketPrice']} for i in data.keys()]
+    return newdata
 
 
 class TickerView(APIView):
@@ -124,7 +130,6 @@ class TickerView(APIView):
         except Exception as e:
             return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
         return Response(data, status=status.HTTP_200_OK)
-
 
 
 
@@ -153,6 +158,12 @@ class Search(APIView):
 
 
 
-    
-
-
+class Portfolio(APIView):
+    def get(self, request, tickers=None):
+        # HTTP response with a list of 
+        try:
+            tickers = tickers.split(',')
+            data = GetList(tickers)
+        except Exception as e:
+            return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(data, status=status.HTTP_200_OK)
