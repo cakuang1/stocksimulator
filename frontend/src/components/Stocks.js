@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useState,useEffect } from 'react';
 import { useNavigate} from 'react-router-dom';
+import SearchBar from './Searchbar';
 
 
 let stockimage = <svg xmlns="http://www.w3.org/2000/svg" fill="purple" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -119,10 +120,13 @@ function Stocks() {
     fetchData();
   }, []);
     return (
+      <>
+    
 <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between h-auto'>
-
+<SearchBar/>
 {trending && <JsonDataComponent data={trending} />}
-</div>
+</div>  
+</>
     )
 }
 
