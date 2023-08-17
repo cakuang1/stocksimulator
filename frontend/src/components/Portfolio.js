@@ -61,17 +61,10 @@ const StockCards = ({data}) => {
 
 function Portfolio(){
   const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
-
+  const [isSearchBarActive, setSearchBarActive] = useState(false);
     return (
-<div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
-<div className="grid grid-cols-3 gap-10 px-9 pt-10">
-{purchases.map((purchase) => (
-        <StockCards key={purchase.id} data={purchase} />
-      ))}
-</div>
-
-
-<div class="flex justify-center mb-10">
+<div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl '>
+<div class="flex justify-center mt-10">
   <div className="h-32 w-96 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
       <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
@@ -82,7 +75,7 @@ function Portfolio(){
         PORTFOLIO
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-
+        {}
       </p>
     </div>
     </div>
@@ -119,6 +112,17 @@ function Portfolio(){
     </div>
   </div>
 </div>
+{purchases.length > 0?<div className="grid grid-cols-3 gap-10 px-9 pt-10">
+{purchases.map((purchase) => (
+        <StockCards key={purchase.id} data={purchase} />
+      ))}
+</div> : <div className='flex justify-center items-center text-3xl font-bold text-gray-400 text-center h-96 '>
+  No Purchases Have Been Made
+</div>}
+
+
+
+
 
 </div>
     );

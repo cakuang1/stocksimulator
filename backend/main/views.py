@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 import requests
 from yahooquery import Ticker
+import yahooquery as yq
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -107,7 +108,10 @@ def GetTickerData(ticker):
 
 
 
-
+def getSearchData(query):
+    data = yq.search(query)
+    return data['quotes']
+    
 
 
 class TickerView(APIView):
@@ -136,6 +140,16 @@ class TrendingView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
+
+class Search(APIView):
+    def get(self, request, query=None):
+        # HTTP response with a list of 
+        try:
+            data = getSearchData(query)
+        except Exception as e:
+            return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response(data, status=status.HTTP_200_OK)
 
 
 
