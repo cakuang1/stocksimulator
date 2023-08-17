@@ -107,11 +107,11 @@ def GetTickerData(ticker):
     return returndic
 
 
-
 def getSearchData(query):
     data = yq.search(query)
-    return data['quotes']
     
+    quotes = [quote for quote in data['quotes'] if quote.get('exchDisp') in ['NASDAQ', 'NYSE']][:4]
+    return quotes
 
 
 class TickerView(APIView):
