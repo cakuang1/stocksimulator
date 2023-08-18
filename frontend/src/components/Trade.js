@@ -88,7 +88,7 @@ function Trade() {
                 />
                 {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
                 </div>
-                <div className="flex">
+                <div className="flex justify-center">
                     <Link to = {'/stocks/' + data.box.ticker}>
                     <div className=" text-3xl border h-32 w-72 flex items-center justify-center rounded-lg cursor-pointer transition duration-300 hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14">
@@ -98,7 +98,7 @@ function Trade() {
                             </div>
                     </Link>
 
-                    <div className="border h-32 w-72 flex items-center justify-center rounded-lg cursor-pointer transition duration-300 hover:shadow-lg bg-green-200" onClick={handlePurchase}>
+                    <div className="border h-32 text-3xl font-semibold w-72 flex items-center justify-center rounded-lg cursor-pointer transition duration-300 hover:shadow-lg bg-green-200" onClick={handlePurchase}>
                                 PURCHASE
                             </div>
 

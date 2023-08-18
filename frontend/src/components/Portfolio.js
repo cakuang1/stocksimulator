@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,Link } from 'react-router-dom';
+
 
 
 
@@ -8,7 +9,8 @@ import { useLocation } from 'react-router-dom';
 
 
 const StockCards = ({data}) => {
-    return (        
+    return (   
+      <Link to = {data.id}>
 <div class="p-4 border-2 hover:bg-green-100 transition duration-300 border-green-100 rounded-lg shadow-md">
     <h1 class="text-xl font-semibold mb-2">Purchase ID: {data.id}</h1>
     <h2 class="text-lg text-gray-700 mb-1">{data.ticker}</h2>
@@ -41,6 +43,7 @@ const StockCards = ({data}) => {
     </div>
   </div>
 </div>
+</Link>  
     )
 }
 
@@ -94,6 +97,7 @@ function Portfolio(){
   }, [purchases]);
 
     return (
+
 <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl '>
 <div class="flex justify-center mt-10">
 <div className="h-32 w-96 rounded-lg shadow-xs border ">
