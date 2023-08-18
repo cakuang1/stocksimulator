@@ -87,7 +87,6 @@ const JsonDataComponent = ({ data }) => {
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl"></td>
 </tr>
-
       ))}
       </tbody>
       </table>

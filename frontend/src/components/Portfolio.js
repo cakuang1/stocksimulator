@@ -7,10 +7,6 @@ import { useLocation } from 'react-router-dom';
 
 
 
-function getPurchases() {
-  return JSON.parse(localStorage.getItem('purchases')) || [];
-}
-
 const StockCards = ({data}) => {
     return (        
 <div class="p-4 border-2 hover:bg-green-100 transition duration-300 border-green-100 rounded-lg shadow-md">
@@ -50,9 +46,9 @@ const StockCards = ({data}) => {
 
 function Portfolio(){
   const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
-  const [toppers, setToppers] = useState([0,0,0,0])
   const [costBasis, setCostBasis] = useState(0);
   const [portfolioValue, setPortfolioValue] = useState(0);
+  const [increase,setIncrease] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,24 +63,33 @@ function Portfolio(){
           const data = await response.json();
 
           const costBasisValue = purchases.reduce((accumulator, currentElement) => {
-            return accumulator + currentElement.total;
+            const totalAsNumber = parseFloat(currentElement.total);
+
+            return accumulator + totalAsNumber;
           }, 0);
-          setCostBasis(costBasisValue);
+          let numValue = parseFloat(costBasisValue);
+          let roundedValue = numValue.toFixed(2)
+          setCostBasis(roundedValue);
+
           const portfolioValueSum = purchases.reduce((accumulator, currentElement) => {
             const amount = currentElement.ammountbought;
-            const ticker = currentElement.ticker;
-            const currentPrice = data[ticker] * amount;
-            console.log(currentPrice)
+            const tick = currentElement.ticker;
+            const currentPrice = data[tick].regularMarketPrice* amount;
+
             return accumulator + currentPrice;
           }, 0);
-          setPortfolioValue(portfolioValueSum);
+          let portfolio = parseFloat(portfolioValueSum);
+          let ro = portfolio.toFixed(2)
+          setPortfolioValue(ro);
+        }
+        if (portfolioValue < costBasis) {
+            setIncrease(false)
         }
       } catch (error) {
         // Handle error if the API call fails
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [purchases]);
 
@@ -125,7 +130,7 @@ function Portfolio(){
         PORTFOLIO CHANGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        ${toppers[1]}
+      <span className={increase?'text-green-500':'text-red-500'}>${(portfolioValue - costBasis).toFixed(2)}</span>
       </p>
     </div>
     </div>
@@ -137,21 +142,21 @@ function Portfolio(){
         CHANGE PERCENTAGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        %{toppers[2]}
+        <span className={increase?'text-green-500':'text-red-500'}>%{(((portfolioValue - costBasis) / costBasis) * 100).toFixed(2)}</span>
       </p>
     </div>
+
     </div>
+
   </div>
 </div>
-{purchases.length > 0?<div className="grid grid-cols-3 gap-10 px-9 pt-10">
+{purchases.length > 0 ?<div className="grid grid-cols-3 gap-10 px-9 pt-10">
 {purchases.map((purchase) => (
         <StockCards key={purchase.id} data={purchase} />
       ))}
 </div> : <div className='flex justify-center items-center text-3xl font-bold text-gray-400 text-center h-96 '>
   No Purchases Have Been Made
 </div>}
-
-
 
 
 

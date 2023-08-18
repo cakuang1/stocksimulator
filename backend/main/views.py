@@ -115,9 +115,11 @@ def getSearchData(query):
 
 
 def GetList(tickers):
+    dic = {}
     data = Ticker(tickers).price
-    newdata = [{i:data[i]['regularMarketPrice']} for i in data.keys()]
-    return newdata
+    for i in data.keys():
+        dic[i] = data[i]['regularMarketPrice']
+    return data
 
 
 class TickerView(APIView):
