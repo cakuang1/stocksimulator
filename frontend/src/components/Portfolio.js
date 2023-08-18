@@ -51,40 +51,42 @@ const StockCards = ({data}) => {
 function Portfolio(){
   const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
   const [toppers, setToppers] = useState([0,0,0,0])
-    useEffect(() => { 
-      const fetchData = async () => {
-        try {
-          const mySet = new Set();
-          const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
-          if (purchases.length > 0) {
+  const [costBasis, setCostBasis] = useState(0);
+  const [portfolioValue, setPortfolioValue] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const mySet = new Set();
+        if (purchases.length > 0) {
           purchases.forEach(element => {
-            mySet.add(element.ticker)
+            mySet.add(element.ticker);
           });
           const setToArray = [...mySet];
           const setString = setToArray.join(',');
           const response = await fetch(`http://127.0.0.1:8000/api/portfolio/${setString}/`);
-          const costbasis = response.reduce((accumulator, currentElement) => {
+          const data = await response.json();
+
+          const costBasisValue = purchases.reduce((accumulator, currentElement) => {
             return accumulator + currentElement.total;
           }, 0);
-          const portfoliovalue = response.reduce((accumulator, currentElement) => {
-            const ammountbought = currentElement.ammountbought
-            const currentstockprice = 
-            const
-
-
-
-            return accumulator + currentElement.;
+          setCostBasis(costBasisValue);
+          const portfolioValueSum = purchases.reduce((accumulator, currentElement) => {
+            const amount = currentElement.ammountbought;
+            const ticker = currentElement.ticker;
+            const currentPrice = data[ticker] * amount;
+            console.log(currentPrice)
+            return accumulator + currentPrice;
           }, 0);
-          }
-          
-          
-        } catch (error) {
-          // Handle error if the API call fails
-          console.error('Error fetching data:', error);
+          setPortfolioValue(portfolioValueSum);
         }
-      };
-      fetchData();
-    }, []);
+      } catch (error) {
+        // Handle error if the API call fails
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [purchases]);
 
     return (
 <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl '>
@@ -97,7 +99,7 @@ function Portfolio(){
         COST BASIS
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {toppers[0]}
+        {costBasis}
       </p>
     </div>
     </div>
@@ -110,7 +112,7 @@ function Portfolio(){
         PORTFOLIO VALUE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {toppers[0]}
+        {portfolioValue}
       </p>
     </div>
     </div>
