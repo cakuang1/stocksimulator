@@ -15,7 +15,7 @@ function App() {
   <div className='flex'>
     <Sidebar />
     <div className='bg-green-50 flex-grow'>
-      <div className='flex justify-center items-center h-full py-7'>
+      <div className='flex justify-center  h-full '>
         <Routes>
           <Route path="/" element={<Portfolio />} />
           <Route path="/:portfolioid" element={<Portfolioinfo />} />

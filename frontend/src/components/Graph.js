@@ -62,8 +62,8 @@ function Graph ({ data }) {
         crosshairType="x" // Show only x-axis slices
         tooltip={({ point }) => (
           <div style={{ background: 'white', padding: '10px', border: '1px solid #ccc' }}>
-            <div><strong>X Value:</strong> {point.data.xFormatted}</div>
-            <div><strong>Y Value:</strong> {point.data.yFormatted}</div>
+            <div><strong>Time:</strong> {point.data.xFormatted}</div>
+            <div><strong>Price:</strong> {point.data.yFormatted}</div>
           </div>
         )}
 

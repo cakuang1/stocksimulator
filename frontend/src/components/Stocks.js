@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useState,useEffect } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 import SearchBar from './Searchbar';
 
 
@@ -17,7 +17,6 @@ function UpImage({net,price}) {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
             </svg>
-
               <div>{price}</div>
           </div>
 
@@ -83,6 +82,7 @@ const JsonDataComponent = ({ data }) => {
     </span>
   </td>
   <td className="px-6 py-4 text-left align-middle">
+    {}
     <UpImage />
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl"></td>
@@ -117,16 +117,20 @@ function Stocks() {
     fetchData();
   }, []);
     return (
-      <>
+    <div className='w-11/12 '>
+    <SearchBar/>
     
-<div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between h-auto'>
-<SearchBar/>
+<div className='innerlayer bg-white min-h-screen  m-auto border rounded-2xl flex flex-col justify-between h-auto mt-4'>
+{trending ? (
+  <div>
 <div class="flex items-center justify-center">
   <h1 class="py-2 px-4 bg-green-200 text-white rounded-md text-2xl font-semibold shadow-md">Trending</h1>
 </div>
-{trending && <JsonDataComponent data={trending} />}
+<JsonDataComponent data={trending}/>
+</div>) : <div></div>}
 </div>  
-</>
+
+</div>
     )
 }
 

@@ -51,7 +51,7 @@ function Portfolio(){
   const purchases = JSON.parse(localStorage.getItem('purchases')) || [];
   const [costBasis, setCostBasis] = useState(0);
   const [portfolioValue, setPortfolioValue] = useState(0);
-  const [increase,setIncrease] = useState(true);
+  const [increase,setIncrease] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -134,7 +134,7 @@ function Portfolio(){
         PORTFOLIO CHANGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-      <span className={increase?'text-green-500':'text-red-500'}>${(portfolioValue - costBasis).toFixed(2)}</span>
+      <span className={increase ?'text-green-500':'text-red-500'}>${(portfolioValue - costBasis).toFixed(2)}</span>
       </p>
     </div>
     </div>

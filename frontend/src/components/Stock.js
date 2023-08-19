@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, json, useParams } from "react-router-dom";
 import Graph from "./Graph";
+import SearchBar from "./Searchbar";
 
 
 
@@ -33,20 +34,21 @@ function BoxItem({label,tag}) {
 
 function Box({data}) {
     return (
-        <div className="border rounded-2xl p-2 pb-6 w-5/12">
+        <div className="border rounded-2xl p-2 pb-6 w-5/12 h-auto">
             <BoxItem label={'TICKER'} tag={data.ticker.toUpperCase()}/>
             <BoxItem label={'EXCHANGE'} tag={data.exchange.toUpperCase()}/>
             <BoxItem label={'PREVIOUS CLOSE'} tag={data.regularMarketPreviousClose}/>
             <BoxItem label={'MARKET VOLUME'} tag={data.regularMarketVolume}/>
             <BoxItem label={'MARKET HIGH'} tag={data.regularMarketDayHigh}/>
             <BoxItem label={'MARKET LOW'} tag={data.regularMarketDayLow}/>
-            <BoxItem label={'VOLUME (10 DAY AVERAGE)'} tag={data.averageDailyVolume10Day}/>
             <BoxItem label={'MARKET OPEN'} tag={data.regularMarketOpen}/>
             <BoxItem label={'TRAILING PE'} tag={data.trailingPE}/>
             <BoxItem label={'FORWARD PE'} tag={data.forwardPE}/>
-            <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
-            <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
-            <BoxItem label={'PRICE HINT'} tag={data.priceHint}/>
+            <BoxItem label={'FIFTY TWO WEEK HIGH'} tag={data.fiftyTwoWeekHigh
+}/>
+            <BoxItem label={'FIFTY TWO WEEK LOW'} tag={data.fiftyTwoWeekLow
+}/>
+            <BoxItem label={'BETA'} tag={data.beta}/>
         </div>
     )
 }
@@ -165,12 +167,15 @@ function Stock(){
       const fetchData = async () => {
         try {
           const response = await fetch(`http://127.0.0.1:8000/api/ticker/${params.ticker}/`);
-          const test = await response.json();
 
-          console.log(test)
-          console.log(test.box)
-          // Handle the data obtained from the API call here
-          setData(test);
+
+          if (response.status === 404) {
+            setData(null); // Set data to null if 404
+          } else {
+            const jsonData = await response.json();
+            console.log(jsonData)
+            setData(jsonData);
+          }
           // You can use the "data" variable within this scope or call another function to handle the data.
         } catch (error) {
           // Handle error if the API call fails
@@ -178,30 +183,36 @@ function Stock(){
         }
       };
       fetchData();
-    }, []);
+    }, [params.ticker]);
     return (
-        <div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl flex flex-col justify-between'>
-        <div className="pl-10 pt-4 pr-10">
-        {data ? (<Title data={data.box}/>) : (<div></div>)}
-            <div className="flex h-5/6 text-5xl">
-            {data ? (<Box data={data.box}/>) : (<div></div>)}
-                <div className="h-full w-full"> 
-                {data ? (<Top data={data}/>) : (<div></div>)}
-                {data ? (<Graph data={data}/>) : (<div></div>)}
-                  {data ? (<Bottom data = {data.box}/>) : (<div></div>)}     
-                </div>
-            </div>
-        </div>
-        {data ?(<div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
-              <Link to = {{ pathname: '/trade/' + data.box.ticker, state: data}}>
-                <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-                    Trade
-                </div>
-                </Link>
-                </div> ): (<div></div>)}
+      <div className='w-11/12 '>
+      <SearchBar/>
+            {data !== null? (  <div className='innerlayer bg-white h-[calc(100vh-2rem)]  m-auto border rounded-2xl flex flex-col justify-between mt-2'>
 
+      <div className="pl-10 pt-4 pr-10">
+       <Title data={data.box}/>
+          <div className="flex h-5/6 text-5xl">
+          {data ? (<Box data={data.box}/>) : (<div></div>)}
+              <div className="h-full w-full"> 
+              {data ? (<Top data={data}/>) : (<div></div>)}
+              {data ? (<Graph data={data}/>) : (<div></div>)}
+                {data ? (<Bottom data = {data.box}/>) : (<div></div>)}     
+              </div>
+          </div>
+      </div>
+      <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
+            <Link to = {{ pathname: '/trade/' + data.box.ticker, state: data}}>
+              <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                  Trade
+              </div>
+              </Link>
+              </div> 
+
+
+      </div>): <div className="h-screen justify-center flex pt-64 text-5xl text-gray-500 text-bold"> Stock is currently not supported. Sorry!</div>}
 
       </div>
+
     );
   };
 
