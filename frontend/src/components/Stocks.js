@@ -74,16 +74,15 @@ const JsonDataComponent = ({ data }) => {
     {item["name"]}
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl">
-    {item["current_price"]}
+    ${item["current_price"]}
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl">
     <span className={item['increase'] === '1' ? 'text-green-500' : 'text-red-500'}>
-      {item["change"]}
+      ${item["change"]}
     </span>
   </td>
   <td className="px-6 py-4 text-left align-middle">
-    {}
-    <UpImage />
+    <UpImage price={item.percent_change}/>
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl"></td>
 </tr>
@@ -123,7 +122,7 @@ function Stocks() {
 <div className='innerlayer bg-white min-h-screen  m-auto border rounded-2xl flex flex-col justify-between h-auto mt-4'>
 {trending ? (
   <div>
-<div class="flex items-center justify-center">
+<div class="flex items-center justify-center mt-10">
   <h1 class="py-2 px-4 bg-green-200 text-white rounded-md text-2xl font-semibold shadow-md">Trending</h1>
 </div>
 <JsonDataComponent data={trending}/>
