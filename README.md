@@ -13,43 +13,41 @@ If you wanted to test this application out locally, you can run the developement
 
 
 1. **Clone the repository:**
+    Open your favorite 
    ```sh
    git clone https://github.com/your-username/your-project.git
    cd your-project/
 
-## Demo
+2. **Build containers:**
 
+    ```sh
+    docker-compose up --build
 
-
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
-
-## Usage
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+3. **Browser:**
+    The frontend and backend containers should now be running on ports 3000 and 8000 respectively.
+     Open a web browser and navigate to http://localhost:3000. The application should working.
+4. **Stop Containers**
+    When finished, stop the containers by 
 
 
 ## Created Using
 
 - React (Front End)
 - Django (Back End) 
-
-
-
-
-
+- Yahoo Query (External API/Webscraper)
+- ApeWisom (External API for trending list)
+- Misc
+    - Pandas (Working with yahoo queries historical data)
+    - Djanjo REST Framework
+    - HeroIcons (for free icons)
+## How this works
+- Django works as a proxy server in order to call the external API. There is no database involved. 
+- YahooQuery feeds data to the backend (Simply a webscraper that scrapes Yahoo Finannce)
+- Django transforms this data and sends it to the client to allow for real-time stock information
 ## Features
+-Live Search - Search for your favorite stocks through the live search bar.
+-Live Stock Information - S
+-Portfolio Tracking - Allows for your purchased stocks to be 
 
-If your project has a lot of features, list them here.
 
-## How to Contribute
-
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
-
-## Tests
 
