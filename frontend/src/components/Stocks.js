@@ -5,31 +5,24 @@ import { useNavigate, useParams} from 'react-router-dom';
 import SearchBar from './Searchbar';
 
 
-let stockimage = <svg xmlns="http://www.w3.org/2000/svg" fill="purple" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-</svg>
-
-
-
 
 function UpImage({net,price}) {
-  let up =<div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-14  rounded">
+  let up =<div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-14  rounded text-green-500 font-bold">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
             </svg>
-              <div>{price}</div>
+              <div className='text-2xl '>{price}</div>
           </div>
 
-  let down = <div class="flex flex-shrink-0 items-center justify-center bg-red-200 h-14  rounded">
+  let down = <div class="flex flex-shrink-0 items-center justify-center bg-red-200 h-14  rounded text-red-500 font-bold">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" />
             </svg>
 
-            <div>{price}</div>
+            <div className='text-2xl '>{price}</div>
           </div>
 
-
-        if (net == 1) {
+        if (net == "1") {
           return up
         }
         return down
@@ -82,7 +75,7 @@ const JsonDataComponent = ({ data }) => {
     </span>
   </td>
   <td className="px-6 py-4 text-left align-middle">
-    <UpImage price={item.percent_change}/>
+    <UpImage net  = {item.increase} price={item.percent_change}/>
   </td>
   <td className="px-6 py-4 text-left align-middle font-bold text-2xl"></td>
 </tr>
@@ -119,6 +112,8 @@ function Stocks() {
     <div className='w-11/12 '>
     <SearchBar/>
     
+
+
 <div className='innerlayer bg-white min-h-screen  m-auto border rounded-2xl flex flex-col justify-between h-auto mt-4'>
 {trending ? (
   <div>

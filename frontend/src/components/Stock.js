@@ -9,6 +9,7 @@ import SearchBar from "./Searchbar";
 
 
 
+
 function Title({data}) {
     return (
         <div className="">
@@ -162,7 +163,7 @@ function Bottom({data}) {
 function Stock(){
     let params = useParams();
     const [data, setData] = useState(null)
-    
+    const [error,setError] = useState(false)
     useEffect(() => { 
       const fetchData = async () => {
         try {
@@ -171,6 +172,7 @@ function Stock(){
 
           if (response.status === 404) {
             setData(null); // Set data to null if 404
+            setError(true)
           } else {
             const jsonData = await response.json();
             console.log(jsonData)
@@ -179,39 +181,46 @@ function Stock(){
           // You can use the "data" variable within this scope or call another function to handle the data.
         } catch (error) {
           // Handle error if the API call fails
+          setError(true)
           console.error('Error fetching data:', error);
         }
       };
       fetchData();
     }, [params.ticker]);
     return (
-      <div className='w-11/12 '>
-      <SearchBar/>
-            {data !== null? (  <div className='innerlayer bg-white h-[calc(100vh-2rem)]  m-auto border rounded-2xl flex flex-col justify-between mt-2'>
-
-      <div className="pl-10 pt-4 pr-10">
-       <Title data={data.box}/>
+<div className='w-11/12 '>
+  <SearchBar />
+  <div className='innerlayer bg-white h-[calc(100vh-2rem)]  m-auto border rounded-2xl flex flex-col justify-between mt-2'>
+    {data !== null && !error ? (  
+      <div>
+        <div className="pl-10 pt-4 pr-10">
+          <Title data={data.box} />
           <div className="flex h-5/6 text-5xl">
-          {data ? (<Box data={data.box}/>) : (<div></div>)}
-              <div className="h-full w-full"> 
-              {data ? (<Top data={data}/>) : (<div></div>)}
-              {data ? (<Graph data={data}/>) : (<div></div>)}
-                {data ? (<Bottom data = {data.box}/>) : (<div></div>)}     
-              </div>
+            {data ? (<Box data={data.box} />) : (<div></div>)}
+            <div className="h-full w-full"> 
+              {data ? (<Top data={data} />) : (<div></div>)}
+              {data ? (<Graph data={data} />) : (<div></div>)}
+              {data ? (<Bottom data={data.box} />) : (<div></div>)}     
+            </div>
           </div>
+        </div>
+        <div className="flex justify-center p-4 mx-10 gap-4 h-40 mb-8">
+          <Link to={{ pathname: '/trade/' + data.box.ticker, state: data }}>
+            <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+              Trade
+            </div>
+          </Link>
+        </div> 
+      </div> 
+    ) : null}
+    
+    {error ? (
+      <div className="h-screen justify-center flex pt-64 text-5xl text-gray-500 text-bold">
+        Stock is currently not supported. Sorry!
       </div>
-      <div className="flex  justify-center p-4 mx-10 gap-4 h-40 mb-8">
-            <Link to = {{ pathname: '/trade/' + data.box.ticker, state: data}}>
-              <div className="flex items-center justify-center w-80 h-full rounded-lg bg-green-50 text-3xl font-semibold text-green-800 shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-                  Trade
-              </div>
-              </Link>
-              </div> 
-
-
-      </div>): <div className="h-screen justify-center flex pt-64 text-5xl text-gray-500 text-bold"> Stock is currently not supported. Sorry!</div>}
-
-      </div>
+    ) : null}
+  </div>
+</div>
 
     );
   };

@@ -1,15 +1,12 @@
 # stocksimulator
 
 
-## Description
-
-
 A quick and easy web application to build your stock portfolio. Search for your favorite stocks and add them to your portfolio through a simple UI. The application will track your portfolio through your browsers storage and allow real time updates to determine how your portfolio is doing using external APIs.
 
 
 ## Running Locally
 
-If you wanted to test this application out locally, you can run the developement servers locally using docker. 
+If you wanted to test this application out locally, you can run the developement servers locally using docker.
 
 
 1. **Clone the repository:**
@@ -46,8 +43,8 @@ If you wanted to test this application out locally, you can run the developement
 - Django transforms this data and sends it to the client to allow for real-time stock information
 ## Features
 -Live Search - Search for your favorite stocks through the live search bar.
--Live Stock Information - S
--Portfolio Tracking - Allows for your purchased stocks to be 
+-Live Stock Information - Stock Information display (Graph,Live Prices)
+-Portfolio Tracking - Allows for your purchased stocks to be tracked through your browsers local storage and added on 
 
 
 
