@@ -4,6 +4,26 @@
 A quick and easy web application to build your stock portfolio. Search for your favorite stocks and add them to your portfolio through a simple UI. The application will track your portfolio through your browsers storage and allow real time updates to determine how your portfolio is doing using external APIs.
 
 
+
+## FrontEnd Endpoints
+
+Method	| Path	| Description	|
+------------- | ------------------------- | ------------- |
+GET	| /accounts/{account}	| Get specified account data| 	
+GET	| /accounts/current	| Get current account data	|
+GET	| /accounts/demo	| Get demo account data (pre-filled incomes/expenses items, etc)	|
+PUT	| /accounts/current	| Save current account data	|
+POST	| /accounts/	| Register new account	|
+
+
+## BackEnd Endpoints
+GET	| /accounts/{account}	| Get specified account data| 	
+GET	| /accounts/current	| Get current account data	|
+GET	| /accounts/demo	| Get demo account data (pre-filled incomes/expenses items, etc)	|
+PUT	| /accounts/current	| Save current account data	|
+POST	| /accounts/	| Register new account	|
+
+
 ## Running Locally
 
 If you wanted to test this application out locally, you can run the developement servers locally using docker.
