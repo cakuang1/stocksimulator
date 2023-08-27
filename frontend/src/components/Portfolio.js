@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
-import { useLocation,Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -85,8 +85,9 @@ function Portfolio(){
           let ro = portfolio.toFixed(2)
           setPortfolioValue(ro);
         }
-        if (portfolioValue < costBasis) {
-            setIncrease(false)
+        if (portfolioValue > costBasis) {
+            setIncrease(true)
+            
         }
       } catch (error) {
         // Handle error if the API call fails
@@ -108,7 +109,7 @@ function Portfolio(){
         COST BASIS
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {costBasis}
+        {costBasis != 0 ? costBasis : ' '}
       </p>
     </div>
     </div>
@@ -121,7 +122,7 @@ function Portfolio(){
         PORTFOLIO VALUE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {portfolioValue}
+        {portfolioValue != 0 ? portfolioValue : ' '}
       </p>
     </div>
     </div>
@@ -134,7 +135,7 @@ function Portfolio(){
         PORTFOLIO CHANGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-      <span className={increase ?'text-green-500':'text-red-500'}>${(portfolioValue - costBasis).toFixed(2)}</span>
+      <span className={increase ?'text-green-500':'text-red-500'}>{increase != null ? (portfolioValue - costBasis).toFixed(2) : ' '}</span>
       </p>
     </div>
     </div>
@@ -146,7 +147,7 @@ function Portfolio(){
         CHANGE PERCENTAGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        <span className={increase?'text-green-500':'text-red-500'}>%{(((portfolioValue - costBasis) / costBasis) * 100).toFixed(2)}</span>
+        <span className={increase?'text-green-500':'text-red-500'}>{portfolioValue != null ? (((portfolioValue - costBasis) / costBasis) * 100).toFixed(2) :' ' } </span>
       </p>
     </div>
 

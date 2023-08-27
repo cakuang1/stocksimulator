@@ -34,7 +34,7 @@ const SearchBar = () => {
             <div className='w-full relative'>
             <input
               type="text"
-              className="w-full pl-10 mx-auto rounded-m h-20 border focus:border-none focus:outline-none focus:ring-2 focus:ring-green-200 text-3xl"
+              className="w-full pl-10 mx-auto rounded-m h-14 border focus:border-none focus:outline-none focus:ring-2 focus:ring-green-200 text-3xl"
               placeholder="Search for Stocks"
               value={searchTerm}
               onChange={(e) => handleSearch(e.target.value)}

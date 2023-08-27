@@ -12,11 +12,10 @@ function Graph ({ data }) {
 
     const color = data.top.change == true ? 'green' : 'red'
     return(
-    <Line
+      <div className='h-2/3 w-full'>
+    <ResponsiveLine
         data={input}
-        height={500}
-        width={1250}
-        margin={{ top: 50, right: 110, bottom: 50, left: 80 }}
+        margin={{ top: 20, bottom: 50, left: 80 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -68,6 +67,7 @@ function Graph ({ data }) {
         )}
 
     />
+    </div>
     )
     }
 

@@ -13,7 +13,7 @@ import SearchBar from "./Searchbar";
 function Title({data}) {
     return (
         <div className="">
-            <h1 className="text-4xl md:text-5xl font-bold mb-2">
+            <h1 className="text-2xl md:text-5xl font-bold mb-2">
                 {data['name']}
             </h1>
             <div className="border-b-2   mb-6"></div>
@@ -23,9 +23,9 @@ function Title({data}) {
 
 function BoxItem({label,tag}) {
     return (
-        <div className="bg-white  flex justify-between px-2 h-14  p-4 ">
-            <div className="text-xl font-bold text-gray-700">{label}</div>
-            <div className="text-xl text-gray-500 font-bold">{tag}</div>
+        <div className="bg-white  flex justify-between px-2 h-10  ">
+            <div className="text-base font-bold text-gray-700">{label}</div>
+            <div className="text-base text-gray-500 font-bold">{tag}</div>
         </div>
     );
 }
@@ -35,7 +35,7 @@ function BoxItem({label,tag}) {
 
 function Box({data}) {
     return (
-        <div className="border rounded-2xl p-2 pb-6 w-5/12 h-auto">
+        <div className="border rounded-2xl p-2 pb-6 flex-shrink-0 w-1/4 h-auto">
             <BoxItem label={'TICKER'} tag={data.ticker.toUpperCase()}/>
             <BoxItem label={'EXCHANGE'} tag={data.exchange.toUpperCase()}/>
             <BoxItem label={'PREVIOUS CLOSE'} tag={data.regularMarketPreviousClose}/>
@@ -63,7 +63,7 @@ function Top({data}) {
   const topdata = data.top
   const date = data.date 
   const green = 
-  <div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-14 w-16 rounded ml-4">
+  <div class="flex flex-shrink-0 items-center justify-center bg-green-200 h-12 w-12 rounded ml-4">
       <svg class="w-6 h-6 fill-current text-green-700"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
       <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
       </svg>
@@ -84,11 +84,11 @@ function Top({data}) {
 
   return (
     <div className="pl-10">
-      <h2 className="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">REGULAR MARKET PRICE (DAY) </h2>
+      <h2 className="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">REGULAR MARKET PRICE (DAY) </h2>
     <div className=" flex">
-      <h1 className="font-bold">${topdata.regularMarketPrice}</h1>
+      <h1 className="font-bold text-4xl">${topdata.regularMarketPrice}</h1>
       {curr}
-      <div className={"flex ml-4 text-4xl font-bold items-center justify-center " + color}>
+      <div className={"flex ml-4 text-2xl font-bold items-center justify-center " + color}>
       <p >${topdata.regularMarketChange}</p>
       <p className="ml-3" >({topdata.regularMarketChangePercent} %)</p>
       </div>
@@ -103,24 +103,26 @@ function Top({data}) {
 function Bottom({data}) {
   return (
 <div class="flex pl-10 justify-around">
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+  <div className="h-32 w-1/3 rounded
+  -lg shadow-xs border ">
     <div className="flex  items-center p-4">
       <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
-    <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+    <div className="">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         Market Capital
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-3xl font-bold text-gray-700 dark:text-gray-200">
         {data.marketcap}
       </p>
     </div>
     </div>
   </div>
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+  <div className="h-32 w-1/3 rounded
+  -lg shadow-xs border ">
     <div className="flex  items-center p-4">
       <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
@@ -129,16 +131,17 @@ function Bottom({data}) {
 
       </div>
     <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         Price-to-Book Ratio
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-3xl font-bold text-gray-700 dark:text-gray-200">
         {data.pricetobook}
       </p>
     </div>
     </div>
   </div>
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+  <div className="h-32 w-1/3 rounded
+  -lg shadow-xs border ">
     <div className="flex  items-center p-4">
       <div className="p-3 rounded-full  dark:text-orange-100 bg-green-100 dark:bg-orange-500 mr-4">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
@@ -147,10 +150,10 @@ function Bottom({data}) {
 
       </div>
     <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         Forward EPS
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-3  xl font-bold text-gray-700 dark:text-gray-200">
         ${data.forwardEps}
       </p>
     </div>
@@ -176,6 +179,7 @@ function Stock(){
           } else {
             const jsonData = await response.json();
             console.log(jsonData)
+            setError(false)
             setData(jsonData);
           }
           // You can use the "data" variable within this scope or call another function to handle the data.
@@ -190,14 +194,14 @@ function Stock(){
     return (
 <div className='w-11/12 '>
   <SearchBar />
-  <div className='innerlayer bg-white h-[calc(100vh-2rem)]  m-auto border rounded-2xl flex flex-col justify-between mt-2'>
+  <div className='innerlayer bg-white h-auto  w-full m-auto border rounded-2xl flex flex-col justify-between mt-2 pr-10'>
     {data !== null && !error ? (  
       <div>
         <div className="pl-10 pt-4 pr-10">
           <Title data={data.box} />
           <div className="flex h-5/6 text-5xl">
             {data ? (<Box data={data.box} />) : (<div></div>)}
-            <div className="h-full w-full"> 
+            <div className="h-auto w-full"> 
               {data ? (<Top data={data} />) : (<div></div>)}
               {data ? (<Graph data={data} />) : (<div></div>)}
               {data ? (<Bottom data={data.box} />) : (<div></div>)}     
