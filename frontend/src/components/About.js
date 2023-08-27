@@ -33,7 +33,6 @@ function About() {
                 <div>
                     <p></p>
 
-
                 </div>
             </div>
 
