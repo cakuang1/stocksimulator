@@ -109,7 +109,7 @@ function Portfolio(){
         COST BASIS
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {costBasis != 0 ? costBasis : ' '}
+        {increase != null ? costBasis : ' '}
       </p>
     </div>
     </div>
@@ -122,7 +122,7 @@ function Portfolio(){
         PORTFOLIO VALUE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        {portfolioValue != 0 ? portfolioValue : ' '}
+        {increase != null ? portfolioValue : ' '}
       </p>
     </div>
     </div>
@@ -147,10 +147,9 @@ function Portfolio(){
         CHANGE PERCENTAGE
       </p>
       <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
-        <span className={increase?'text-green-500':'text-red-500'}>{portfolioValue != null ? (((portfolioValue - costBasis) / costBasis) * 100).toFixed(2) :' ' } </span>
+        <span className={increase?'text-green-500':'text-red-500'}>{increase != null ? (((portfolioValue - costBasis) / costBasis) * 100).toFixed(2) :' ' } </span>
       </p>
     </div>
-
     </div>
 
   </div>

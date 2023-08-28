@@ -12,7 +12,7 @@ function Graph ({ data }) {
 
     const color = data.top.change == true ? 'green' : 'red'
     return(
-      <div className='h-2/3 w-full'>
+      <div className='h-3/5 w-full'>
     <ResponsiveLine
         data={input}
         margin={{ top: 20, bottom: 50, left: 80 }}
