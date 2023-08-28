@@ -12,32 +12,32 @@ const StockCards = ({data}) => {
     return (   
       <Link to = {data.id}>
 <div class="p-4 border-2 hover:bg-green-100 transition duration-300 border-green-100 rounded-lg shadow-md">
-    <h1 class="text-xl font-semibold mb-2">Purchase ID: {data.id}</h1>
-    <h2 class="text-lg text-gray-700 mb-1">{data.ticker}</h2>
-    <h3 class="text-md text-gray-500 mb-3">{data.name}</h3>
-    <h3 class="text-md text-gray-500 mb-3">{data.purchasedate}</h3>
-    <div class="flex items-center space-x-4 mt-3 gap-4 h-32 justify-center">
+    <h1 class="text-sm font-semibold mb-1">Purchase ID: {data.id}</h1>
+    <h2 class="text-sm text-gray-700 mb-1">{data.ticker}</h2>
+    <h3 class="text-sm text-gray-500 mb-1">{data.name}</h3>
+    <h3 class="text-sm text-gray-500 mb-1">{data.purchasedate}</h3>
+    <div class="flex items-center space-x-4 gap-4  justify-center">
     <div className='text-center'>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class=" text-sm font-medium text-gray-600 dark:text-gray-400">
         Purchase Price
       </p>
-      <p class="text-l font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-sm font-bold text-gray-700 dark:text-gray-200">
         ${data.boughtfor}
       </p>
     </div>
     <div className='text-center'> 
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class=" text-sm font-medium text-gray-600 dark:text-gray-400">
         Amount
       </p>
-      <p class="text-l font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-sm font-bold text-gray-700 dark:text-gray-200">
         {data.ammountbought}
       </p>
     </div>
     <div className='text-center'>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
         Total Spent
       </p>
-      <p class="text-l font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-sm font-bold text-gray-700 dark:text-gray-200">
         ${data.total}
       </p>
     </div>
@@ -98,16 +98,16 @@ function Portfolio(){
   }, [purchases]);
 
     return (
-<div className=' h-auto'>
-<div className='innerlayer bg-white  m-auto border rounded-2xl flex flex-col justify-between mt-2 pr-10 w-11/12'>
+
+<div className='innerlayer bg-white min-h-screen  m-auto border rounded-2xl flex flex-col  h-auto mt-4 w-11/12'>
 <div class="flex justify-center mt-10">
 <div className=" w-1/5 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
     <div>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400">
         COST BASIS
       </p>
-      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
         {increase != null ? costBasis : ' '}
       </p>
     </div>
@@ -117,10 +117,10 @@ function Portfolio(){
     <div className="flex  items-center p-4">
 
     <div>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400">
         PORTFOLIO VALUE
       </p>
-      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
         {increase != null ? portfolioValue : ' '}
       </p>
     </div>
@@ -130,10 +130,10 @@ function Portfolio(){
     <div className="flex  items-center p-4">
 
     <div>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400">
         PORTFOLIO CHANGE
       </p>
-      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
       <span className={increase ?'text-green-500':'text-red-500'}>{increase != null ? (portfolioValue - costBasis).toFixed(2) : ' '}</span>
       </p>
     </div>
@@ -142,18 +142,18 @@ function Portfolio(){
   <div className="w-1/5 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
     <div>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400">
         CHANGE PERCENTAGE
       </p>
-      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
         <span className={increase?'text-green-500':'text-red-500'}>{increase != null ? (((portfolioValue - costBasis) / costBasis) * 100).toFixed(2) :' ' } </span>
       </p>
     </div>
     </div>
-
   </div>
 </div>
-{purchases.length > 0 ?<div className="grid grid-cols-3 gap-10 px-9 pt-10">
+
+{purchases.length > 0 ?<div className="grid grid-cols-3 gap-10 px-9 ">
 {purchases.map((purchase) => (
         <StockCards key={purchase.id} data={purchase} />
       ))}
@@ -163,7 +163,7 @@ function Portfolio(){
 
 
 </div>
-</div>
+
     );
   };
 
