@@ -98,55 +98,54 @@ function Portfolio(){
   }, [purchases]);
 
     return (
-
-<div className='innerlayer bg-white h-[calc(100vh-2rem)] w-11/12 m-auto border rounded-2xl '>
+<div className=' h-auto'>
+<div className='innerlayer bg-white  m-auto border rounded-2xl flex flex-col justify-between mt-2 pr-10 w-11/12'>
 <div class="flex justify-center mt-10">
-<div className="h-32 w-96 rounded-lg shadow-xs border ">
+<div className=" w-1/5 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
-
     <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         COST BASIS
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
         {increase != null ? costBasis : ' '}
       </p>
     </div>
     </div>
   </div>
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+  <div className=" w-1/5 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
 
     <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         PORTFOLIO VALUE
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
         {increase != null ? portfolioValue : ' '}
       </p>
     </div>
     </div>
   </div>
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+  <div className=" w-1/5 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
 
     <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         PORTFOLIO CHANGE
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
       <span className={increase ?'text-green-500':'text-red-500'}>{increase != null ? (portfolioValue - costBasis).toFixed(2) : ' '}</span>
       </p>
     </div>
     </div>
   </div>
-  <div className="h-32 w-96 rounded-lg shadow-xs border ">
+  <div className="w-1/5 rounded-lg shadow-xs border ">
     <div className="flex  items-center p-4">
     <div>
-      <p class="mb-2 text-3xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
         CHANGE PERCENTAGE
       </p>
-      <p class="text-5xl font-bold text-gray-700 dark:text-gray-200">
+      <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
         <span className={increase?'text-green-500':'text-red-500'}>{increase != null ? (((portfolioValue - costBasis) / costBasis) * 100).toFixed(2) :' ' } </span>
       </p>
     </div>
@@ -163,7 +162,7 @@ function Portfolio(){
 </div>}
 
 
-
+</div>
 </div>
     );
   };

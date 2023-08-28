@@ -23,7 +23,7 @@ function Title({data}) {
 
 function BoxItem({label,tag}) {
     return (
-        <div className="bg-white  flex justify-between px-2 h-10 ">
+        <div className="bg-white  flex justify-between px-2 h-10 mb-3">
             <div className="text-sm font-bold text-gray-700">{label}</div>
             <div className="text-sm text-gray-500 font-bold">{tag}</div>
         </div>
@@ -35,7 +35,7 @@ function BoxItem({label,tag}) {
 
 function Box({data}) {
     return (
-        <div className="border rounded-2xl p-2 pb-6 flex-shrink-0 w-4/12 flex flex-col w-full flex-grow">
+        <div className="border rounded-2xl p-2 pb-6 flex-shrink-0 w-4/12 flex flex-col w-full flex-grow pt-2">
             <BoxItem label={'TICKER'} tag={data.ticker.toUpperCase()}/>
             <BoxItem label={'EXCHANGE'} tag={data.exchange.toUpperCase()}/>
             <BoxItem label={'PREVIOUS CLOSE'} tag={data.regularMarketPreviousClose}/>
@@ -71,7 +71,7 @@ function Top({data}) {
   </div>
 
   const red = 
-  <div class="flex flex-shrink-0 items-center justify-center bg-red-200 h-14 w-16 rounded ml-4">
+  <div class="flex flex-shrink-0 items-center justify-center bg-red-200 h-12 w-12 rounded ml-4">
   <svg class="w-6 h-6 fill-current text-red-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
   <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd" />
   </svg>
@@ -112,7 +112,7 @@ function Bottom({data}) {
         </svg>
       </div>
     <div className="">
-      <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-base font-medium text-gray-600 dark:text-gray-400">
         Market Capital
       </p>
       <p class="text-xl font-bold text-gray-700 dark:text-gray-200">
@@ -131,7 +131,7 @@ function Bottom({data}) {
 
       </div>
     <div>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-base font-medium text-gray-600 dark:text-gray-400">
         Price-to-Book Ratio
       </p>
       <p class="text-xl font-bold text-gray-700 dark:text-gray-200">
@@ -150,7 +150,7 @@ function Bottom({data}) {
 
       </div>
     <div>
-      <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+      <p class="mb-2 text-base font-medium text-gray-600 dark:text-gray-400">
         Forward EPS
       </p>
       <p class="text-xl font-bold text-gray-700 dark:text-gray-200">

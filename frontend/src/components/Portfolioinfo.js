@@ -36,6 +36,8 @@ function Portfolioinfo() {
 
       function handleSell() {
         const purchases = JSON.parse(localStorage.getItem('purchases')) || []
+        
+
 
       }
       return(
