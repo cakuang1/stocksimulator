@@ -73,7 +73,7 @@ function Portfolio(){
           let numValue = parseFloat(costBasisValue);
           let roundedValue = numValue.toFixed(2)
           setCostBasis(roundedValue);
-
+          console.log(roundedValue)
           const portfolioValueSum = purchases.reduce((accumulator, currentElement) => {
             const amount = currentElement.ammountbought;
             const tick = currentElement.ticker;
@@ -108,7 +108,7 @@ function Portfolio(){
         COST BASIS
       </p>
       <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
-        {increase != null ? costBasis : ' '}
+        {costBasis}
       </p>
     </div>
     </div>
@@ -121,7 +121,7 @@ function Portfolio(){
         PORTFOLIO VALUE
       </p>
       <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
-        {increase != null ? portfolioValue : ' '}
+        {portfolioValue}
       </p>
     </div>
     </div>
@@ -134,7 +134,7 @@ function Portfolio(){
         PORTFOLIO CHANGE
       </p>
       <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
-      <span className={increase ?'text-green-500':'text-red-500'}>{increase != null ? (portfolioValue - costBasis).toFixed(2) : ' '}</span>
+      <span >{(portfolioValue - costBasis).toFixed(2)}</span>
       </p>
     </div>
     </div>
@@ -146,7 +146,7 @@ function Portfolio(){
         CHANGE PERCENTAGE
       </p>
       <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
-        <span className={increase?'text-green-500':'text-red-500'}>{increase != null ? (((portfolioValue - costBasis) / costBasis) * 100).toFixed(2) :' ' } </span>
+        <span >{((( portfolioValue - costBasis) / costBasis) * 100).toFixed(2)} </span>
       </p>
     </div>
     </div>
