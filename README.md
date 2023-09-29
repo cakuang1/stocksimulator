@@ -6,9 +6,6 @@ A quick and easy web application to build your stock portfolio. Search for your 
 
 
 
-
-
-
 ## FrontEnd Endpoints
 
 Method	| Path	| Description	|
@@ -21,6 +18,8 @@ GET	| /<str:purchasid>	| Register new account	|
 
 
 ## BackEnd REST Endpoints
+Method	| Path	| Description	|
+------------- | ------------------------- | ------------- |
 GET	| /trending	| Get trending tickers and their data| 	
 GET	| /ticker/<str:ticker>/'| Get specified ticker data	|
 GET	| search/<str:query>/	| Grab search query results from the given query	|
@@ -35,8 +34,8 @@ If you wanted to test this application out locally, you can run the developement
 1. **Clone the repository:**
     Open your favorite 
    ```sh
-   git clone https://github.com/your-username/your-project.git
-   cd your-project/
+   git clone https://github.com/cakuang1/stocksimulator/
+   cd stocksimulator/
 
 2. **Build containers:**
 
@@ -47,12 +46,12 @@ If you wanted to test this application out locally, you can run the developement
     The frontend and backend containers should now be running on ports 3000 and 8000 respectively.
      Open a web browser and navigate to http://localhost:3000. The application should working.
 4. **Stop Containers**
-    When finished, stop the containers by 
+    When finished, stop the containers by either running docker-compose down, or manually stopping the containers on docker desktop.
 
 ## Demo
 
 
-![Animated GIF](stock.gif)
+![Alt Text](public/stock.gif)
 
 ## Created Using
 
