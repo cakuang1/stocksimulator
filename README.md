@@ -32,7 +32,6 @@ If you wanted to test this application out locally, you can run the developement
 
 
 1. **Clone the repository:**
-    Open your favorite 
    ```sh
    git clone https://github.com/cakuang1/stocksimulator/
    cd stocksimulator/
