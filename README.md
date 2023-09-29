@@ -5,23 +5,26 @@ A quick and easy web application to build your stock portfolio. Search for your 
 
 
 
+
+
+
+
 ## FrontEnd Endpoints
 
 Method	| Path	| Description	|
 ------------- | ------------------------- | ------------- |
-GET	| /accounts/{account}	| Get specified account data| 	
-GET	| /accounts/current	| Get current account data	|
-GET	| /accounts/demo	| Get demo account data (pre-filled incomes/expenses items, etc)	|
-PUT	| /accounts/current	| Save current account data	|
-POST	| /accounts/	| Register new account	|
+GET	| /	| Index page. View your portfolio here| 	
+GET	| /stocks	| Trending stocks page and Stock search feature|
+GET	| /stocks/<str:ticker>	| Ticker data of a specific stock. Includes Graph and common markers	|
+GET | /trade/<str:ticker> | Buy screen for a ticker|
+GET	| /<str:purchasid>	| Register new account	|
 
 
-## BackEnd Endpoints
-GET	| /accounts/{account}	| Get specified account data| 	
-GET	| /accounts/current	| Get current account data	|
-GET	| /accounts/demo	| Get demo account data (pre-filled incomes/expenses items, etc)	|
-PUT	| /accounts/current	| Save current account data	|
-POST	| /accounts/	| Register new account	|
+## BackEnd REST Endpoints
+GET	| /trending	| Get trending tickers and their data| 	
+GET	| /ticker/<str:ticker>/'| Get specified ticker data	|
+GET	| search/<str:query>/	| Grab search query results from the given query	|
+GET	| portfolio/<str:tickers>/| Grab ticker data for the stocks in your portfolio	|
 
 
 ## Running Locally
@@ -46,6 +49,10 @@ If you wanted to test this application out locally, you can run the developement
 4. **Stop Containers**
     When finished, stop the containers by 
 
+## Demo
+
+
+![Animated GIF](stock.gif)
 
 ## Created Using
 
